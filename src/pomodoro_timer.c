@@ -1,5 +1,5 @@
-#include "timer.h"
-#include "pomodoro_timer.h"
+#include "../include/timer.h"
+#include "../include/pomodoro_timer.h"
 
 pomodoro_timer_t initialize_pomodoro(int work,int short_break,int long_break,int long_break_interval) {
     pomodoro_timer_t pomodoro;
