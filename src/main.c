@@ -22,6 +22,7 @@ int main(void) {
                 ClearBackground(PRIMARY_ALT);
                 float const menu_w = 500;
                 float const menu_h = 200;
+                Vector2 mouse_point = GetMousePosition();
                 Rectangle menu_box = {
                     ((float) GetScreenWidth() - menu_w) / 2, ((float) GetScreenHeight() - menu_h) / 2, menu_w, menu_h
                 };
@@ -51,8 +52,57 @@ int main(void) {
                 const char *quit_txt = "Quit";
                 DrawText(quit_txt, quit_btn.x + (quit_btn.width - MeasureText(quit_txt, 32)) / 2,
                          quit_btn.y + (quit_btn.height - 32) / 2, 32,BLACK);
+
+                /* Buttons Logic */
+                if (CheckCollisionPointRec(mouse_point,start_btn)) {
+                    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+                        current_screen = TIMER_SCREEN;
+                    }
+                }
                 break;
             }
+            case TIMER_SCREEN:
+                ClearBackground(PRIMARY_ALT);
+                float const menu_w = 500;
+                float const menu_h = 500;
+                Vector2 mouse_point = GetMousePosition();
+                Rectangle menu_box = {
+                    ((float) GetScreenWidth() - menu_w) / 2, ((float) GetScreenHeight() - menu_h) / 2, menu_w, menu_h
+                };
+
+                DrawRectangleRounded(menu_box,OUTER_ROUNDNESS,ROUNDNESS_SEGM,PRIMARY);
+                const char *title = "Start timer";
+                DrawText(title, menu_box.x + (menu_box.width - MeasureText(title, 32)) / 2, menu_box.y + 24, 32,
+                         BLACK);
+
+                float const btn_w = 220;
+                float const btn_h = 60;
+                float btn_pad = 20;
+
+                Rectangle start_pause_btn = {
+                    menu_box.x + btn_pad, menu_box.y + menu_box.height - btn_h - btn_pad, btn_w, btn_h
+                };
+                Rectangle back_btn = {
+                    menu_box.x + menu_box.width - btn_w - btn_pad, menu_box.y + menu_box.height - btn_h - btn_pad,
+                    btn_w, btn_h
+                };
+
+                DrawRectangleRounded(start_pause_btn,INNER_ROUNDNESS,ROUNDNESS_SEGM,SECONDARY);
+                const char *start_txt = "Play/Pause";
+                DrawText(start_txt, start_pause_btn.x + (start_pause_btn.width - MeasureText(start_txt, 32)) / 2,
+                         start_pause_btn.y + (start_pause_btn.height - 32) / 2, 32,BLACK);
+
+                DrawRectangleRounded(back_btn,INNER_ROUNDNESS,ROUNDNESS_SEGM,WARNING);
+                const char *back_txt = "Menu";
+                DrawText(back_txt, back_btn.x + (back_btn.width - MeasureText(back_txt, 32)) / 2,
+                         back_btn.y + (back_btn.height - 32) / 2, 32,BLACK);
+
+                if (CheckCollisionPointRec(mouse_point,back_btn)) {
+                    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+                        current_screen = MENU_SCREEN;
+                    }
+                }
+
             default: ;
         }
         EndDrawing();
