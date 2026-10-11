@@ -17,11 +17,12 @@ int main(void) {
     SetTargetFPS(30);
     app_screen current_screen = MENU_SCREEN;
     bool exit_flag = false;
-
+    bool cursor_on_btn = false;
     while (!WindowShouldClose() && !exit_flag) {
         BeginDrawing();
         switch (current_screen) {
             case MENU_SCREEN: {
+                cursor_on_btn = false;
                 ClearBackground(PRIMARY_ALT);
                 float const menu_w = 500;
                 float const menu_h = 200;
@@ -40,36 +41,47 @@ int main(void) {
                     btn_w, btn_h
                 };
 
-                DrawRectangleRounded(menu_box,dynamic_roundness(menu_box,OUTER_ROUNDNESS),ROUNDNESS_SEGM,PRIMARY);
+                DrawRectangleRounded(menu_box, dynamic_roundness(menu_box,OUTER_ROUNDNESS),ROUNDNESS_SEGM,PRIMARY);
                 const char *welcome_txt = "Welcome to Mango Timer";
-                DrawText(welcome_txt, menu_box.x + (menu_box.width - MeasureText(welcome_txt, 32)) / 2, menu_box.y + 24, 32,
+                DrawText(welcome_txt, menu_box.x + (menu_box.width - MeasureText(welcome_txt, 32)) / 2, menu_box.y + 24,
+                         32,
                          BLACK);
 
-                DrawRectangleRounded(start_btn,dynamic_roundness(start_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,SECONDARY);
+                DrawRectangleRounded(start_btn, dynamic_roundness(start_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,SECONDARY);
                 const char *start_txt = "Start!";
                 DrawText(start_txt, start_btn.x + (start_btn.width - MeasureText(start_txt, 32)) / 2,
                          start_btn.y + (start_btn.height - 32) / 2, 32,BLACK);
 
-                DrawRectangleRounded(quit_btn,dynamic_roundness(quit_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,WARNING);
+                DrawRectangleRounded(quit_btn, dynamic_roundness(quit_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,WARNING);
                 const char *quit_txt = "Quit";
                 DrawText(quit_txt, quit_btn.x + (quit_btn.width - MeasureText(quit_txt, 32)) / 2,
                          quit_btn.y + (quit_btn.height - 32) / 2, 32,BLACK);
 
                 /* Buttons Logic */
-                if (CheckCollisionPointRec(mouse_point,start_btn)) {
+                if (CheckCollisionPointRec(mouse_point, start_btn)) {
+                    cursor_on_btn = true;
                     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                         current_screen = TIMER_SCREEN;
                     }
                 }
 
-                if (CheckCollisionPointRec(mouse_point,quit_btn)) {
+                if (CheckCollisionPointRec(mouse_point, quit_btn)) {
+                    cursor_on_btn = true;
                     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                         exit_flag = true;
                     }
                 }
+
+                if (cursor_on_btn) {
+                    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+                } else {
+                    SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+                }
                 break;
             }
             case TIMER_SCREEN:
+                cursor_on_btn = false;
+
                 ClearBackground(PRIMARY_ALT);
                 float const menu_w = 500;
                 float const menu_h = 500;
@@ -78,7 +90,7 @@ int main(void) {
                     ((float) GetScreenWidth() - menu_w) / 2, ((float) GetScreenHeight() - menu_h) / 2, menu_w, menu_h
                 };
 
-                DrawRectangleRounded(menu_box,dynamic_roundness(menu_box,OUTER_ROUNDNESS),ROUNDNESS_SEGM,PRIMARY);
+                DrawRectangleRounded(menu_box, dynamic_roundness(menu_box,OUTER_ROUNDNESS),ROUNDNESS_SEGM,PRIMARY);
                 const char *title = "Start timer";
                 DrawText(title, menu_box.x + (menu_box.width - MeasureText(title, 32)) / 2, menu_box.y + 24, 32,
                          BLACK);
@@ -95,20 +107,28 @@ int main(void) {
                     btn_w, btn_h
                 };
 
-                DrawRectangleRounded(start_pause_btn,dynamic_roundness(start_pause_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,SECONDARY);
+                DrawRectangleRounded(start_pause_btn, dynamic_roundness(start_pause_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,
+                                     SECONDARY);
                 const char *start_txt = "Play/Pause";
                 DrawText(start_txt, start_pause_btn.x + (start_pause_btn.width - MeasureText(start_txt, 32)) / 2,
                          start_pause_btn.y + (start_pause_btn.height - 32) / 2, 32,BLACK);
 
-                DrawRectangleRounded(back_btn,dynamic_roundness(back_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,WARNING);
+                DrawRectangleRounded(back_btn, dynamic_roundness(back_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,WARNING);
                 const char *back_txt = "Menu";
                 DrawText(back_txt, back_btn.x + (back_btn.width - MeasureText(back_txt, 32)) / 2,
                          back_btn.y + (back_btn.height - 32) / 2, 32,BLACK);
 
-                if (CheckCollisionPointRec(mouse_point,back_btn)) {
+                if (CheckCollisionPointRec(mouse_point, back_btn)) {
+                    cursor_on_btn = true;
                     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                         current_screen = MENU_SCREEN;
                     }
+                }
+
+                if (cursor_on_btn) {
+                    SetMouseCursor(MOUSE_CURSOR_POINTING_HAND);
+                } else {
+                    SetMouseCursor(MOUSE_CURSOR_DEFAULT);
                 }
 
             default: ;
