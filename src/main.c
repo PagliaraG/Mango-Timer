@@ -14,8 +14,9 @@ int main(void) {
     InitWindow(1280, 720, "Mango Timer");
     SetTargetFPS(30);
     app_screen current_screen = MENU_SCREEN;
+    bool exit_flag = false;
 
-    while (!WindowShouldClose()) {
+    while (!WindowShouldClose() && !exit_flag) {
         BeginDrawing();
         switch (current_screen) {
             case MENU_SCREEN: {
@@ -57,6 +58,12 @@ int main(void) {
                 if (CheckCollisionPointRec(mouse_point,start_btn)) {
                     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                         current_screen = TIMER_SCREEN;
+                    }
+                }
+
+                if (CheckCollisionPointRec(mouse_point,quit_btn)) {
+                    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+                        exit_flag = true;
                     }
                 }
                 break;
