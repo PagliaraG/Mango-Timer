@@ -1,5 +1,7 @@
+#include <stdio.h>
 #include "raylib.h"
 #include "config.h"
+#include "utils.h"
 
 typedef enum {
     MENU_SCREEN,
@@ -27,7 +29,6 @@ int main(void) {
                 Rectangle menu_box = {
                     ((float) GetScreenWidth() - menu_w) / 2, ((float) GetScreenHeight() - menu_h) / 2, menu_w, menu_h
                 };
-
                 float const btn_w = 220;
                 float const btn_h = 60;
                 float btn_pad = 20;
@@ -39,7 +40,7 @@ int main(void) {
                     btn_w, btn_h
                 };
 
-                DrawRectangleRounded(menu_box,OUTER_ROUNDNESS,ROUNDNESS_SEGM,PRIMARY);
+                DrawRectangleRounded(menu_box,dynamic_roundness(menu_box,OUTER_ROUNDNESS),ROUNDNESS_SEGM,PRIMARY);
                 const char *welcome_txt = "Welcome to Mango Timer";
                 DrawText(welcome_txt, menu_box.x + (menu_box.width - MeasureText(welcome_txt, 32)) / 2, menu_box.y + 24, 32,
                          BLACK);
@@ -77,7 +78,7 @@ int main(void) {
                     ((float) GetScreenWidth() - menu_w) / 2, ((float) GetScreenHeight() - menu_h) / 2, menu_w, menu_h
                 };
 
-                DrawRectangleRounded(menu_box,OUTER_ROUNDNESS,ROUNDNESS_SEGM,PRIMARY);
+                DrawRectangleRounded(menu_box,dynamic_roundness(menu_box,OUTER_ROUNDNESS),ROUNDNESS_SEGM,PRIMARY);
                 const char *title = "Start timer";
                 DrawText(title, menu_box.x + (menu_box.width - MeasureText(title, 32)) / 2, menu_box.y + 24, 32,
                          BLACK);
