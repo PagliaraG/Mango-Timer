@@ -7,7 +7,7 @@
 #define WARNING GetColor(0xff6008ff)
 #define WARNING_ALT GetColor(0Xff0000ff)
 
-#define INNER_ROUNDNESS 0.4f
+#define INNER_ROUNDNESS 16.0f
 #define OUTER_ROUNDNESS 24.0f
 #define ROUNDNESS_SEGM 24
 

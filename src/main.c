@@ -45,12 +45,12 @@ int main(void) {
                 DrawText(welcome_txt, menu_box.x + (menu_box.width - MeasureText(welcome_txt, 32)) / 2, menu_box.y + 24, 32,
                          BLACK);
 
-                DrawRectangleRounded(start_btn,INNER_ROUNDNESS,ROUNDNESS_SEGM,SECONDARY);
+                DrawRectangleRounded(start_btn,dynamic_roundness(start_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,SECONDARY);
                 const char *start_txt = "Start!";
                 DrawText(start_txt, start_btn.x + (start_btn.width - MeasureText(start_txt, 32)) / 2,
                          start_btn.y + (start_btn.height - 32) / 2, 32,BLACK);
 
-                DrawRectangleRounded(quit_btn,INNER_ROUNDNESS,ROUNDNESS_SEGM,WARNING);
+                DrawRectangleRounded(quit_btn,dynamic_roundness(quit_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,WARNING);
                 const char *quit_txt = "Quit";
                 DrawText(quit_txt, quit_btn.x + (quit_btn.width - MeasureText(quit_txt, 32)) / 2,
                          quit_btn.y + (quit_btn.height - 32) / 2, 32,BLACK);
@@ -95,12 +95,12 @@ int main(void) {
                     btn_w, btn_h
                 };
 
-                DrawRectangleRounded(start_pause_btn,INNER_ROUNDNESS,ROUNDNESS_SEGM,SECONDARY);
+                DrawRectangleRounded(start_pause_btn,dynamic_roundness(start_pause_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,SECONDARY);
                 const char *start_txt = "Play/Pause";
                 DrawText(start_txt, start_pause_btn.x + (start_pause_btn.width - MeasureText(start_txt, 32)) / 2,
                          start_pause_btn.y + (start_pause_btn.height - 32) / 2, 32,BLACK);
 
-                DrawRectangleRounded(back_btn,INNER_ROUNDNESS,ROUNDNESS_SEGM,WARNING);
+                DrawRectangleRounded(back_btn,dynamic_roundness(back_btn,INNER_ROUNDNESS),ROUNDNESS_SEGM,WARNING);
                 const char *back_txt = "Menu";
                 DrawText(back_txt, back_btn.x + (back_btn.width - MeasureText(back_txt, 32)) / 2,
                          back_btn.y + (back_btn.height - 32) / 2, 32,BLACK);
