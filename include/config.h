@@ -8,7 +8,7 @@
 #define WARNING_ALT GetColor(0Xff0000ff)
 
 #define INNER_ROUNDNESS 0.4f
-#define OUTER_ROUNDNESS 0.3f
+#define OUTER_ROUNDNESS 24.0f
 #define ROUNDNESS_SEGM 24
 
 #endif //MANGO_TIMER__CONFIG_H
